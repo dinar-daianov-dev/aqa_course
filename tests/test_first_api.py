@@ -1,9 +1,10 @@
-import requests
-
+from src.clients.chuck_norris_client import ChuckNorrisClient
 
 def test_chuck_norris_random_joke():
     """Первый API-тест: получаем случайную шутку."""
-    response = requests.get("https://api.chucknorris.io/jokes/random")
+    client = ChuckNorrisClient()
+
+    response = client.get_random_joke()
 
     # Проверяем статус
     assert response.status_code == 200
@@ -25,7 +26,9 @@ def test_chuck_norris_random_joke():
 
 def test_categories_returns_list():
     """Второй Api-тест: получаем список категорий."""
-    response = requests.get("https://api.chucknorris.io/jokes/categories")
+    client = ChuckNorrisClient()
+
+    response = client.get_categories()
 
     # Проверяем статус
     assert response.status_code == 200
@@ -44,7 +47,9 @@ def test_categories_returns_list():
 
 def test_search_jokes():
     """Третий Api-тест: ищем шутки по запросу c параметром "computer"."""
-    response = requests.get("https://api.chucknorris.io/jokes/search", params={"query": "computer"})
+    client = ChuckNorrisClient()
+
+    response = client.search("computer")
 
     # Проверяем статус
     assert response.status_code == 200
@@ -61,7 +66,9 @@ def test_search_jokes():
 
 def test_invalid_category_returns_404():
     """Четвертый Api-тест: ищем шутки по несуществующей категории "fake_xyz"."""
-    response = requests.get("https://api.chucknorris.io/jokes/random", params={"category": "fake_xyz"})
+    client = ChuckNorrisClient()
+
+    response = client.get_random_joke(category="fake_xyz")
 
     # Проверяем статус 
     assert response.status_code == 404
