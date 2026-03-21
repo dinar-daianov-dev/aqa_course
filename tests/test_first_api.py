@@ -1,10 +1,9 @@
 from src.clients.chuck_norris_client import ChuckNorrisClient
 
-def test_chuck_norris_random_joke():
+def test_chuck_norris_random_joke(chuck_norris_client):
     """Первый API-тест: получаем случайную шутку."""
-    client = ChuckNorrisClient()
 
-    response = client.get_random_joke()
+    response = chuck_norris_client.get_random_joke()
 
     # Проверяем статус
     assert response.status_code == 200
@@ -24,11 +23,9 @@ def test_chuck_norris_random_joke():
     print(f"\nШутка: {joke['value']}")
 
 
-def test_categories_returns_list():
+def test_categories_returns_list(chuck_norris_client):
     """Второй Api-тест: получаем список категорий."""
-    client = ChuckNorrisClient()
-
-    response = client.get_categories()
+    response = chuck_norris_client.get_categories()
 
     # Проверяем статус
     assert response.status_code == 200
@@ -45,11 +42,9 @@ def test_categories_returns_list():
     # Проверка что "dev" есть в списке
     assert "dev" in category
 
-def test_search_jokes():
+def test_search_jokes(chuck_norris_client):
     """Третий Api-тест: ищем шутки по запросу c параметром "computer"."""
-    client = ChuckNorrisClient()
-
-    response = client.search("computer")
+    response = chuck_norris_client.search("computer")
 
     # Проверяем статус
     assert response.status_code == 200
@@ -64,11 +59,9 @@ def test_search_jokes():
     # Проверяем что "total" больше 0
     assert search_results["total"] > 0
 
-def test_invalid_category_returns_404():
+def test_invalid_category_returns_404(chuck_norris_client):
     """Четвертый Api-тест: ищем шутки по несуществующей категории "fake_xyz"."""
-    client = ChuckNorrisClient()
-
-    response = client.get_random_joke(category="fake_xyz")
+    response = chuck_norris_client.get_random_joke(category="fake_xyz")
 
     # Проверяем статус 
     assert response.status_code == 404
