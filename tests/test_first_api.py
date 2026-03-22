@@ -1,5 +1,8 @@
+import pytest
+
 from src.clients.chuck_norris_client import ChuckNorrisClient
 
+@pytest.mark.smoke
 def test_chuck_norris_random_joke(chuck_norris_client):
     """Первый API-тест: получаем случайную шутку."""
 
@@ -22,7 +25,7 @@ def test_chuck_norris_random_joke(chuck_norris_client):
     # Выводим для наглядности
     print(f"\nШутка: {joke['value']}")
 
-
+@pytest.mark.smoke
 def test_categories_returns_list(chuck_norris_client):
     """Второй Api-тест: получаем список категорий."""
     response = chuck_norris_client.get_categories()
@@ -42,6 +45,7 @@ def test_categories_returns_list(chuck_norris_client):
     # Проверка что "dev" есть в списке
     assert "dev" in category
 
+@pytest.mark.smoke
 def test_search_jokes(chuck_norris_client):
     """Третий Api-тест: ищем шутки по запросу c параметром "computer"."""
     response = chuck_norris_client.search("computer")
@@ -59,6 +63,7 @@ def test_search_jokes(chuck_norris_client):
     # Проверяем что "total" больше 0
     assert search_results["total"] > 0
 
+@pytest.mark.negative
 def test_invalid_category_returns_404(chuck_norris_client):
     """Четвертый Api-тест: ищем шутки по несуществующей категории "fake_xyz"."""
     response = chuck_norris_client.get_random_joke(category="fake_xyz")

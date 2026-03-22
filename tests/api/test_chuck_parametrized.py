@@ -9,6 +9,7 @@ from src.utils.helpers import http_status_description
     "food",
     "celebrity",
 ])
+@pytest.mark.regression
 def test_joke_by_category(chuck_norris_client, category):
     """Тестируем получение шутки по категории."""
     # Получи шутку с этой категорией
@@ -29,6 +30,7 @@ def test_joke_by_category(chuck_norris_client, category):
     ("python", 0),
     ("xyznonexistent123", 0),
 ])
+@pytest.mark.regression
 def test_search_various_queries(chuck_norris_client, query, min_results):
     """Проверка поиска с разными запросами"""
 
@@ -54,6 +56,7 @@ def test_search_various_queries(chuck_norris_client, query, min_results):
     (500, "Internal Server Error"),
     (999, "Unknown"),
 ])
+@pytest.mark.regression
 def test_status_descriptions(code, expected):
     """Проверка что http_status_description работает для всех кодов"""
 
