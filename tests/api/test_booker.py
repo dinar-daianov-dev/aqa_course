@@ -30,40 +30,18 @@ def test_get_bookings(booker_client):
     assert response.status_code == 200
 
 @pytest.mark.regression
-def test_get_booking(booker_client):
+def test_get_booking(booker_client, create_booking):
     """Позитивный тест для получения информации о конкретном бронировании. Сначала создадим бронирование."""
-    data = {
-    "firstname": "Test",
-    "lastname": "User",
-    "totalprice": 100,
-    "depositpaid": True,
-    "bookingdates": {
-        "checkin": "2024-01-01",
-        "checkout": "2024-01-02"
-    },
-    "additionalneeds": "None"
-    }
-    create_resp = booker_client.create_booking(data)
-    booking_id = create_resp.json()["bookingid"]
+    booking_id = create_booking(firstname="Read", lastname="Test")
     response = booker_client.get_booking(booking_id)
     assert response.status_code == 200
+    assert response.json()["firstname"] == "Read"
+    assert response.json()["lastname"] == "Test"
 
 @pytest.mark.regression
-def test_delete_booking(booker_client):
+def test_delete_booking(booker_client, create_booking):
     """Позитивный тест для удаления бронирования"""
-    data = {
-        "firstname": "Delete",
-        "lastname": "Me",
-        "totalprice": 50,
-        "depositpaid": False,
-        "bookingdates": {
-            "checkin": "2024-03-01",
-            "checkout": "2024-03-05"
-        },
-        "additionalneeds": ""
-    }
-    create_resp = booker_client.create_booking(data)
-    booking_id = create_resp.json()["bookingid"]
+    booking_id = create_booking(firstname="Delete", lastname="Me")
     response = booker_client.delete_booking(booking_id)
     assert response.status_code == 201
 
