@@ -17,5 +17,9 @@ class BaseApiClient:
         kwargs.setdefault("timeout", self.timeout)
         return self.session.post(f"{self.base_url}{endpoint}", **kwargs)
     
+    def delete(self, endpoint: str, **kwargs):
+        kwargs.setdefault("timeout", self.timeout)
+        return self.session.delete(f"{self.base_url}{endpoint}", **kwargs)
+
     def close(self):
         self.session.close()
