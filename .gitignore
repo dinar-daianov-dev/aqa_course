@@ -12,3 +12,5 @@ allure-2.25.0/
 .vscode/
 test_run.log
 screenshots/
+allure-2.25.0/
+allure-2.25.0.tgz
