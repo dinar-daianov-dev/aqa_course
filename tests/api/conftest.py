@@ -1,5 +1,6 @@
 import pytest
 from src.clients.booker_client import BookerClient
+from src.utils.logger import setup_logging
 
 @pytest.fixture(scope="session")
 def booker_client():
@@ -37,3 +38,7 @@ def create_booking(booker_client):
             booker_client.delete_booking(booking_id)
         except Exception:
             pass
+
+@pytest.fixture(scope="session", autouse=True)
+def configure_logging():
+    setup_logging("INFO")
