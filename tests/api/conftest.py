@@ -3,6 +3,12 @@ from src.clients.booker_client import BookerClient
 from src.utils.logger import setup_logging
 
 @pytest.fixture(scope="session")
+def booking_client():
+    """Клиент БЕЗ авторизации — для негативных тестов."""
+    return BookerClient("https://restful-booker.herokuapp.com")
+
+
+@pytest.fixture(scope="session")
 def booker_client():
     """Создает клиента и вызывает authenticate()."""
     client = BookerClient("https://restful-booker.herokuapp.com")
