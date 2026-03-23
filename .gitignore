@@ -4,6 +4,8 @@ __pycache__/
 .pytest_cache/
 allure-results/
 allure-report/
+allure-2.25.0/
+*.tgz
 .env
 *.egg-info/
 .idea/
